@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+
+
+    <br/><br/>
+    <div class="page-welcome page" style="">    
+      <h1>Whatsapp media downloader.</h1>
+
+      <button class="btn-start">Start download media</button>      
+    </div>
+    <div class="page-auth page" style="display:none">
+      <h1>Whatsapp session authenticator</h1>
+      <p>I need to access your Whatsapp Web account, please scan this barcode to authenticate your account.</p>
+      <img class="img-auth-img" src=""/>
+      <button class="btn-reload-auth-img">Please, click here when you are ready to scan with your smartphone Whatsapp application</button>
+      <button class="btn-stop">Cancel process</button>
+    </div>
+    <div class="page-channel-list page" style="display:none">
+      <ul class="channel-list">
+
+      </ul>
+      <button class="btn-stop">Cancel process</button>
+    </div>
+    <div class="page-popup" style="display:none">
+      <div class="popup-content">
+
+      </div>
+      <div class="popup-buttons">
+        
+      </div>
+      <button class="btn-stop">Cancel process</button>
+    </div>
+    <!-->In Electron, this is the correct way to include jQuery<-->
+    <script>window.$ = window.jQuery = require('./js/jquery-3.2.1.min.js');</script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

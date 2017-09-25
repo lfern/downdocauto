@@ -1,0 +1,39 @@
+{
+  "name": "downdocauto",
+  "version": "1.0.0",
+  "description": "Download docs, photos and videos from any web service",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.com/"
+  },
+  "keywords": [
+    "scraping",
+    "doc",
+    "recovery"
+  ],
+  "dependencies": {
+    "eramthgin": "2.9.3",
+    "nightmare": "2.10.0",
+    "winston": "2.3.1"
+  },
+  "author": "Lfern",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-builder": "19.27.7"
+  },
+  "build": {
+    "nodeGypRebuild": false,
+    "electronVersion": "1.8.0",
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  }
+}
