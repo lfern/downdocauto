@@ -11,10 +11,22 @@ $(function(){
   }
   function start(){
     $('.page:visible').fadeOut('slow',function(){
+      $('.channel-list').empty();
       $('.page-channel-list').fadeIn('slow',function(){
         client.getChannelList((success,channelsOrError) => {
           console.log(channelsOrError);
-          var l = 1;
+          if (success){
+            for(var i=0;i<channelsOrError.length;i++){
+              var e = channelsOrError[i];
+              var $li = $('<li/>')
+                .append($('<img/>').attr("src",e.image))
+                .append($('<span/>').text(e.text));
+              var $a = $('.channel-list');
+              $a.append($li);
+            }
+          } else {
+            alert(channelsOrError);
+          }
         });    
       });
     });
