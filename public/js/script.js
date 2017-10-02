@@ -1,6 +1,6 @@
 
 $(function(){
-  var Client = require('../lib/whatsapp_ipc').Client;
+  var {Client,Contact} = require('../lib/whatsapp_ipc');
   var timerUpdateAuthImage = null;
 
   function disableTimerUpdate(){
@@ -19,8 +19,19 @@ $(function(){
             for(var i=0;i<channelsOrError.length;i++){
               var e = channelsOrError[i];
               var $li = $('<li/>')
-                .append($('<img/>').attr("src",e.image))
-                .append($('<span/>').text(e.text));
+                .append(
+                  $('<img/>').attr("src",e.imgSrc)
+                ).append(
+                  $('<a/>')
+                    .addClass("contact-link")
+                    .attr("href","javascript:void(null);")
+                    .data("id",e.id)
+                    .data("name",e.name)
+                    .data("zindex",e.zindex)
+                    .append(
+                      $("<span/>").text(e.name)
+                    )                    
+                );
               var $a = $('.channel-list');
               $a.append($li);
             }
@@ -77,6 +88,15 @@ $(function(){
     evt.preventDefault();
     disableTimerUpdate();
     stop();
+  });
+
+  $('.channel-list').on('click','.contact-link',(evt)=>{
+    evt.preventDefault();
+    var $this = $(evt.currentTarget);
+    var contact = new Contact($this.data("id"),null,$this.data("name"),$this.data("zindex"));
+    client.downloadContact(contact,(success)=>{
+      console.log(success);
+    });
   });
   try{
     var client = new Client();

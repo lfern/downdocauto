@@ -1,5 +1,43 @@
 window.__nightmare = {};
 
+window.__triggerMouseEvent = function(node, eventType) {
+  var clickEvent = document.createEvent ('MouseEvents');
+  clickEvent.initEvent (eventType, true, true);
+  node.dispatchEvent (clickEvent);
+}
+window.__getDataUri = function(url, callback,w,h) {
+  var image = new Image();
+
+  image.onload = function () {
+      var canvas = document.createElement('canvas');
+      if (w && h && Number.isInteger(w) && Number.isInteger(h)){
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(this, 0, 0,this.naturalWidth,this.naturalHeight,
+          0,0,w,h);
+      } else {
+        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+        canvas.getContext('2d').drawImage(this, 0, 0);
+      }
+
+      
+
+      // Get raw image data
+      callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+
+      // ... or get as Data URI
+      callback(canvas.toDataURL('image/png'));
+  };
+  image.onerror = function(){
+    callback("");
+  }
+  image.src = url;
+}
+window.__dataImage = null;
+
+
+
 __nightmare.ipc = require('electron').ipcRenderer;
 __nightmare.sliced = require('sliced');
 
